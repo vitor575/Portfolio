@@ -1,6 +1,7 @@
 import ReactFullpage from "@fullpage/react-fullpage";
 import Apresentacao from "./pages/Apresentacao";
 import SobreMim from "./pages/SobreMim";
+import Projetos from "./pages/Projetos";
 
 function App() {
   
@@ -20,7 +21,7 @@ function App() {
               <SobreMim />
             </div>
             <div className="section" style={{ background: '#2E2B33'}}>
-              <h1>Seção 3</h1>
+              <Projetos />
             </div>
           </div>
         );

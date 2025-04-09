@@ -15,6 +15,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import CodeIcon from "@mui/icons-material/Code";
 import PhoneIcon from "@mui/icons-material/Phone";
 import fundo from "../../img/fundo.jpg";
+import { Typewriter } from "react-simple-typewriter";
 
 const HeroSection = () => {
   const handleNavigation = (section: number) => {
@@ -52,9 +53,9 @@ const HeroSection = () => {
         }}
       >
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 2 }}
+          initial={{ opacity: 0, x: -100}}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1 }}
           style={{
             display: "flex",
             flexDirection: "column",
@@ -78,7 +79,6 @@ const HeroSection = () => {
               component="h1"
               fontSize="40px"
               margin="0 0 10px 0"
-              className="gradient-text"
               color="white"
             >
               Vitor Hugo S. de Souza
@@ -91,24 +91,43 @@ const HeroSection = () => {
             padding="10px"
             border="3px solid #473C61"
           >
-            Desenvolvedor Front-end
+            <Typewriter
+              words={["Desenvolvedor Front-end"]}
+              loop={0}
+              cursor
+              cursorStyle="|"
+              typeSpeed={100}
+              deleteSpeed={50}
+              delaySpeed={3000}
+            />
           </Typography>
         </motion.div>
         <Box sx={{ width: "100%", margin: "5px 0" }}>
           <List sx={{ display: "flex", justifyContent: "center" }}>
             {[
-              { title: "Sobre mim", icon: <PersonIcon sx={{ width: "80px", height: "80px" }} />, section: 2 },
-              { title: "Meus projetos", icon: <CodeIcon sx={{ width: "80px", height: "80px" }} />, section: 3 },
-              { title: "Entre em contato", icon: <PhoneIcon sx={{ width: "80px", height: "80px" }} />, section: 4 }
+              {
+                title: "Sobre mim",
+                icon: <PersonIcon sx={{ width: "80px", height: "80px" }} />,
+                section: 2,
+              },
+              {
+                title: "Meus projetos",
+                icon: <CodeIcon sx={{ width: "80px", height: "80px" }} />,
+                section: 3,
+              },
+              {
+                title: "Entre em contato",
+                icon: <PhoneIcon sx={{ width: "80px", height: "80px" }} />,
+                section: 4,
+              },
             ].map((item, index) => (
               <ListItem key={index}>
                 <motion.div
-                  initial={{ opacity: 0, y: 50 }}
+                  initial={{ opacity: 0, y: 70 }}
                   animate={{ opacity: 1, y: 0 }}
                   whileHover={{
                     boxShadow: "0 0 10px 10px rgba(71, 60, 97, 0.9)",
-                    scale: 1.01,
-                    backgroundColor: "rgba(54, 47, 65, 0.9)"
+                    scale: 0.95
                   }}
                   transition={{ duration: 0.9 }}
                   style={{ width: "100%" }}
@@ -133,9 +152,7 @@ const HeroSection = () => {
                         </Typography>
                       }
                     />
-                    <CardMedia>
-                      {item.icon}
-                    </CardMedia>
+                    <CardMedia>{item.icon}</CardMedia>
                     <CardActions>
                       <Button
                         sx={{ border: "2px solid white", color: "white" }}
