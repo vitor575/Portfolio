@@ -1,25 +1,53 @@
 import Slider from "react-slick";
 import { Box, Typography, Button } from "@mui/material";
 import serenatto from '../../../img/Serenatto.png'
+import { useState } from "react";
+import ProjetosModal from "../ProjetosModal";
 
 const projects = [
   {
     id: 1,
     title: "Athletic",
-    description: "Gerenciamento de academia",
+    description: "Desenvolvemos uma aplicação web para o gerenciamento de academias, com foco em treinos e exercícios. O projeto visa facilitar o acompanhamento e a organização dos treinos, bem como permitir a criação, edição e associação de exercícios e treinos aos usuários. E nesse projeto utilizamos as seguintes tecnologias :",
+    tecnology: ["React: Criação de interfaces dinâmicas e componentizadas.", "Redux: Gerenciamento eficiente do estado global da aplicação.", "GraphQL com Apollo Client: Comunicação entre o front-end e o back-end por meio de consultas e mutações, proporcionando maior flexibilidade na obtenção e atualização de dados.", "Material UI (MUI): Desenvolvimento de uma interface moderna, responsiva e alinhada aos princípios do Material Design.", "TypeScript: Uso de tipagem estática para garantir maior robustez e manutenção do código."],
     deploy: "",
     image: "/images/projeto1.jpg",
   },
   {
     id: 2,
     title: "Serenatto",
-    description: "Projeto da Alura para aprender Bootstrap",
+    description: "Este projeto foi desenvolvido durante o curso da Alura para aprimorar o uso de HTML semântico, CSS avançado e Bootstrap. Construímos páginas responsivas que demonstram componentes como navbar, cards e formulários, aplicando as melhores práticas de acessibilidade e mobile-first.",
+    tecnology: ["HTML5: marcação semântica para melhor SEO e acessibilidade",
+      "CSS3: estilos modernos, Flexbox e Grid para layouts responsivos",
+      "Bootstrap: componentes prontos e utilitários para agilizar o desenvolvimento"],
     deploy: "https://serenatto-navy.vercel.app",
     image: serenatto,
   },
 ];
 
 const ProjetoCarrosel = () => {
+
+  type Project = {
+    id: number;
+    title: string;
+    description: string;
+    tecnology: string[]
+    deploy: string;
+    image: string; 
+  };
+
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [selectedProject, setSelectedProject ] = useState<Project | null>(null);
+  
+  const handleOpenModal = (project: Project) => {
+    setOpenModal(true);
+    setSelectedProject(project);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
   const settings = {
     dots: true,
     infinite: false,
@@ -31,7 +59,7 @@ const ProjetoCarrosel = () => {
   };
 
   return (
-    <Box sx={{ width: "80%", mx: "auto", my: 4 }}>
+    <Box sx={{ width: "80%", mx: "auto", my: 2}}>
       <Typography variant="h4" textAlign="center" color="white" mb={2}>
         Meus Projetos
       </Typography>
@@ -53,7 +81,7 @@ const ProjetoCarrosel = () => {
               alt={project.title}
               sx={{
                 width: "100%",
-                height: "300px",
+                height: "400px",
                 objectFit: "cover",
                 borderRadius: "10px",
               }}
@@ -61,18 +89,16 @@ const ProjetoCarrosel = () => {
             <Typography variant="h5" mt={2} color="white">
               {project.title}
             </Typography>
-            <Typography variant="body2" mt={1} color="white">
-              {project.description}
-            </Typography>
             <Button
               variant="contained"
               sx={{ mt: 2, bgcolor: "#473C61", color: "white" }}
             >
-              <Box sx={{textDecoration: 'none', color: 'white'}} component="a" target="_blank" href={project.deploy}>Ver projeto</Box>
-            </Button>
+              <Button onClick={() => handleOpenModal(project)}>Ver mais</Button>
+            </Button> 
           </Box>
         ))}
       </Slider>
+      <ProjetosModal open={openModal} handleClose={handleCloseModal} project={selectedProject}/> 
     </Box>
   );
 };

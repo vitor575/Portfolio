@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Avatar,
@@ -17,158 +18,178 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import fundo from "../../img/fundo.jpg";
 import { Typewriter } from "react-simple-typewriter";
 
-const HeroSection = () => {
+const MotionBox = motion(Box);
+
+const HeroSection: React.FC = () => {
+  const [showContent, setShowContent] = useState(false);
+
   const handleNavigation = (section: number) => {
-    if (window.fullpage_api) {
-      window.fullpage_api.moveTo(section);
-    }
+    window.fullpage_api?.moveTo(section);
   };
 
   return (
-    <Box sx={{ height: "100vh", position: "relative" }}>
+    <Box sx={{ height: "100vh", position: "relative", overflow: "hidden" }}>
       <Box
         sx={{
           height: "100vh",
           backgroundImage: `url(${fundo})`,
           backgroundSize: "cover",
           backgroundPosition: "bottom",
-          backgroundRepeat: "no-repeat",
         }}
       />
       <Box
         sx={{
           position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
+          inset: 0,
           backgroundColor: "rgba(0, 0, 0, 0.6)",
         }}
       />
-      <Box
+      <MotionBox
+        initial={{ width: 0, height: 0 }}
+        animate={{ width: "80%", height: "95%"}}
+        transition={{
+          ease: "easeInOut",
+          rotateX: {duration: 1},
+          width: { duration: 1 },
+          height: { duration: 1, delay: 1 },
+        }}
+        onAnimationComplete={() => setShowContent(true)}
         sx={{
           position: "absolute",
-          width: "100%",
-          top: "3%",
+          left: "50%",
+          top: "50%",
+          transform: "translate(-50%, -50%)",
+          transformOrigin: "center center",
+          boxSizing: "border-box",
+          overflow: "hidden",
+          p: 2,
+          borderRadius: 2,
+          bgcolor: "rgba(54, 47, 65, 0.7)",
+          border: "2px solid #72619b",
         }}
       >
-        <motion.div
-          initial={{ opacity: 0, x: -100}}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1 }}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar
-            src="https://github.com/vitor575.png"
-            sx={{
-              width: "200px",
-              height: "200px",
-              border: "7px solid #473C61",
-            }}
-          />
+        {showContent && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 2 }}
+            transition={{ duration: 0.8 }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
+            <Avatar
+              src="https://github.com/vitor575.png"
+              sx={{
+                width: 200,
+                height: 200,
+                border: "4px solid #72619b",
+              }}
+              
+            />
             <Typography
               component="h1"
               fontSize="40px"
-              margin="0 0 10px 0"
               color="white"
+              mt={2}
+              mb={1}
             >
               Vitor Hugo S. de Souza
             </Typography>
-          </motion.div>
-          <Typography
-            fontSize="24px"
-            component="h2"
-            color="white"
-            padding="10px"
-            border="3px solid #473C61"
-          >
-            <Typewriter
-              words={["Desenvolvedor Front-end"]}
-              loop={0}
-              cursor
-              cursorStyle="|"
-              typeSpeed={100}
-              deleteSpeed={50}
-              delaySpeed={3000}
-            />
-          </Typography>
-        </motion.div>
-        <Box sx={{ width: "100%", margin: "5px 0" }}>
-          <List sx={{ display: "flex", justifyContent: "center" }}>
-            {[
-              {
-                title: "Sobre mim",
-                icon: <PersonIcon sx={{ width: "80px", height: "80px" }} />,
-                section: 2,
-              },
-              {
-                title: "Meus projetos",
-                icon: <CodeIcon sx={{ width: "80px", height: "80px" }} />,
-                section: 3,
-              },
-              {
-                title: "Entre em contato",
-                icon: <PhoneIcon sx={{ width: "80px", height: "80px" }} />,
-                section: 4,
-              },
-            ].map((item, index) => (
-              <ListItem key={index}>
-                <motion.div
-                  initial={{ opacity: 0, y: 70 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  whileHover={{
-                    boxShadow: "0 0 10px 10px rgba(71, 60, 97, 0.9)",
-                    scale: 0.95
-                  }}
-                  transition={{ duration: 0.9 }}
-                  style={{ width: "100%" }}
-                >
-                  <Card
-                    sx={{
-                      width: "100%",
-                      textAlign: "center",
-                      bgcolor: "rgba(54, 47, 65, 0.9)",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      gap: "5px",
-                      padding: "10px",
-                      border: "2px solid #473C61",
+            <Box
+              sx={{
+                p: 1,
+                border: "3px solid #72619b",
+                bgcolor: "rgba(39, 34, 48, 1)",
+                color: "white",
+                fontSize: "20px"
+              }}
+            >
+              <Typewriter
+                words={["Desenvolvedor Front-end"]}
+                loop={0}
+                cursor
+                cursorStyle="|"
+                typeSpeed={100}
+                deleteSpeed={50}
+                delaySpeed={3000}
+                
+              />
+            </Box>
+            <List
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                gap: 2,
+                mt: 2,
+                width: "100%",
+                boxSizing: "border-box",
+                flexWrap: "wrap",
+              }}
+            >
+              {[
+                {
+                  title: "Sobre mim",
+                  icon: <PersonIcon sx={{ fontSize: 80, color: "white" }} />,
+                  section: 2,
+                },
+                {
+                  title: "Meus projetos",
+                  icon: <CodeIcon sx={{ fontSize: 80, color: "white" }} />,
+                  section: 3,
+                },
+                {
+                  title: "Entre em contato",
+                  icon: <PhoneIcon sx={{ fontSize: 80, color: "white" }} />,
+                  section: 4,
+                },
+              ].map((item) => (
+                <ListItem key={item.title} sx={{ p: 0, width: 300 }}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 70 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.9 }}
+                    whileHover={{
+                      y: -10,
+                      boxShadow: "0 0 10px rgba(71,60,97,0.9)",
                     }}
                   >
-                    <CardHeader
-                      title={
-                        <Typography variant="h5" component="h3" color="white">
-                          {item.title}
-                        </Typography>
-                      }
-                    />
-                    <CardMedia>{item.icon}</CardMedia>
-                    <CardActions>
-                      <Button
-                        sx={{ border: "2px solid white", color: "white" }}
-                        variant="outlined"
-                        onClick={() => handleNavigation(item.section)}
-                      >
-                        Ver mais
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </motion.div>
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-      </Box>
+                    <Card
+                      sx={{
+                        width: "300px",
+                        textAlign: "center",
+                        bgcolor: "rgba(39,34,48,1)",
+                        border: "2px solid #72619b",
+                        padding: 2
+                      }}
+                    >
+                      <CardHeader
+                        sx={{m: 0, p: 0}}
+                        title={
+                          <Typography variant="h6" color="white">
+                            {item.title}
+                          </Typography>
+                        }
+                      />
+                      <CardMedia>{item.icon}</CardMedia>
+                      <CardActions sx={{ justifyContent: "center" }}>
+                        <Button
+                          variant="outlined"
+                          sx={{ borderColor: "white", color: "white", p:0 }}
+                          onClick={() => handleNavigation(item.section)}
+                        >
+                          Ver mais
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  </motion.div>
+                </ListItem>
+              ))}
+            </List>
+          </motion.div>
+        )}
+      </MotionBox>
     </Box>
   );
 };

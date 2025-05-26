@@ -26,7 +26,7 @@ const Projetos = () => {
           bgcolor: "rgba(0, 0, 0, 0.7)",
         }}
       />
-      <Box position="relative" textAlign="center" margin="60px 0">
+      <Box position="relative" textAlign="center" margin="20px 0">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
