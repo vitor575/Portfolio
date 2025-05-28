@@ -17,6 +17,7 @@ import CodeIcon from "@mui/icons-material/Code";
 import PhoneIcon from "@mui/icons-material/Phone";
 import fundo from "../../img/fundo.jpg";
 import { Typewriter } from "react-simple-typewriter";
+import pixelArt from "../../img/EuPixel.jpg";
 
 const MotionBox = motion(Box);
 
@@ -46,10 +47,10 @@ const HeroSection: React.FC = () => {
       />
       <MotionBox
         initial={{ width: 0, height: 0 }}
-        animate={{ width: "80%", height: "95%"}}
+        animate={{ width: "80%", height: "95%" }}
         transition={{
           ease: "easeInOut",
-          rotateX: {duration: 1},
+          rotateX: { duration: 1 },
           width: { duration: 1 },
           height: { duration: 1, delay: 1 },
         }}
@@ -79,15 +80,25 @@ const HeroSection: React.FC = () => {
               alignItems: "center",
             }}
           >
-            <Avatar
-              src="https://github.com/vitor575.png"
-              sx={{
-                width: 200,
-                height: 200,
-                border: "4px solid #72619b",
+            <motion.div
+              animate={{ y: [0, -5, 0] }}
+              transition={{
+                duration: 2, // tempo total do ciclo (subida e descida)
+                repeat: Infinity,
+                repeatType: "loop",
+                ease: "easeInOut",
               }}
-              
-            />
+            >
+              <Avatar
+                src={pixelArt}
+                sx={{
+                  width: 200,
+                  height: 200,
+                  border: "4px solid #72619b",
+                }}
+              />
+            </motion.div>
+
             <Typography
               component="h1"
               fontSize="40px"
@@ -103,7 +114,7 @@ const HeroSection: React.FC = () => {
                 border: "3px solid #72619b",
                 bgcolor: "rgba(39, 34, 48, 1)",
                 color: "white",
-                fontSize: "20px"
+                fontSize: "20px",
               }}
             >
               <Typewriter
@@ -114,7 +125,6 @@ const HeroSection: React.FC = () => {
                 typeSpeed={100}
                 deleteSpeed={50}
                 delaySpeed={3000}
-                
               />
             </Box>
             <List
@@ -161,11 +171,11 @@ const HeroSection: React.FC = () => {
                         textAlign: "center",
                         bgcolor: "rgba(39,34,48,1)",
                         border: "2px solid #72619b",
-                        padding: 2
+                        padding: 2,
                       }}
                     >
                       <CardHeader
-                        sx={{m: 0, p: 0}}
+                        sx={{ m: 0, p: 0 }}
                         title={
                           <Typography variant="h6" color="white">
                             {item.title}
@@ -176,7 +186,7 @@ const HeroSection: React.FC = () => {
                       <CardActions sx={{ justifyContent: "center" }}>
                         <Button
                           variant="outlined"
-                          sx={{ borderColor: "white", color: "white", p:0 }}
+                          sx={{ borderColor: "white", color: "white", p: 0 }}
                           onClick={() => handleNavigation(item.section)}
                         >
                           Ver mais
