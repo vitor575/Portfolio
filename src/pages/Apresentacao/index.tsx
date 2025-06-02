@@ -7,8 +7,6 @@ import {
   ListItem,
   CardHeader,
   CardMedia,
-  CardActions,
-  Button,
   Box,
   Card,
 } from "@mui/material";
@@ -83,7 +81,7 @@ const HeroSection: React.FC = () => {
             <motion.div
               animate={{ y: [0, -5, 0] }}
               transition={{
-                duration: 2, // tempo total do ciclo (subida e descida)
+                duration: 2,
                 repeat: Infinity,
                 repeatType: "loop",
                 ease: "easeInOut",
@@ -159,20 +157,26 @@ const HeroSection: React.FC = () => {
                   <motion.div
                     initial={{ opacity: 0, y: 70 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.9 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     whileHover={{
-                      y: -10,
-                      boxShadow: "0 0 10px rgba(71,60,97,0.9)",
+                      boxShadow: "0 10px 60px #705e99",
+                      y: -5
                     }}
                   >
                     <Card
                       sx={{
                         width: "300px",
+                        height: "180px",
                         textAlign: "center",
                         bgcolor: "rgba(39,34,48,1)",
                         border: "2px solid #72619b",
                         padding: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        cursor: "pointer",
                       }}
+                      onClick={() => handleNavigation(item.section)}
                     >
                       <CardHeader
                         sx={{ m: 0, p: 0 }}
@@ -183,15 +187,6 @@ const HeroSection: React.FC = () => {
                         }
                       />
                       <CardMedia>{item.icon}</CardMedia>
-                      <CardActions sx={{ justifyContent: "center" }}>
-                        <Button
-                          variant="outlined"
-                          sx={{ borderColor: "white", color: "white", p: 0 }}
-                          onClick={() => handleNavigation(item.section)}
-                        >
-                          Ver mais
-                        </Button>
-                      </CardActions>
                     </Card>
                   </motion.div>
                 </ListItem>

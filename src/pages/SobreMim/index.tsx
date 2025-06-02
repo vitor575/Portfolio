@@ -10,7 +10,7 @@ const SobreMim = () => {
   const MotionListItem = motion(ListItem);
 
   const texto =
-    "Meu nome é Vitor Hugo, tenho 20 anos e estou concluindo meus estudos em Análise e Desenvolvimento de Sistemas na Universidade Cruzeiro do Sul. Desenvolvedor Front-end com experiência em React.js, Next.js, Redux, JavaScript, TypeScript, Styled Components, Material UI e consumo de APIs REST e GraphQL, estou em busca da minha primeira oportunidade no setor de tecnologia, uma vez que sou apaixonado por aprender e disposto a expandir meus conhecimentos nesse campo.";
+    "Meu nome é Vitor Hugo, tenho 20 anos e estou concluindo meus estudos em Análise e Desenvolvimento de Sistemas na Universidade Cruzeiro do Sul. Desenvolvedor Front-end com experiência em React.js,Redux, JavaScript, TypeScript, Styled Components, Material UI e consumo de APIs REST e GraphQL, estou em busca da minha primeira oportunidade no setor de tecnologia, uma vez que sou apaixonado por aprender e disposto a expandir meus conhecimentos nesse campo.";
 
   const techList = [
     { name: "React.JS", icon: <FaReact color="lightblue" size="80px" /> },

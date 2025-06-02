@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
-import { Box, Button, List, ListItem, Modal, Typography, IconButton } from "@mui/material";
-import CloseIcon from '@mui/icons-material/Close';
+import { Box, Button, Modal, Typography, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 export type Project = {
-  id: number;
-  title: string;
-  description: string;
-  tecnology: string[];
-  deploy: string;
-  image: string;
+  id?: number;
+  nome?: string;
+  desc?: string;
+  url?: string;
+  videoUrl?: string;
+  tech: React.ReactNode[];
+  repo?: string;
 };
 
 interface ProjetosModalProps {
@@ -17,14 +18,20 @@ interface ProjetosModalProps {
   project: Project | null;
 }
 
-const ProjetosModal: React.FC<ProjetosModalProps> = ({ open, handleClose, project }) => {
+const ProjetosModal: React.FC<ProjetosModalProps> = ({
+  open,
+  handleClose,
+  project,
+}) => {
   useEffect(() => {
-    const api = (window as unknown as {
-      fullpage_api?: {
-        setAllowScrolling: (enabled: boolean) => void;
-        setKeyboardScrolling?: (enabled: boolean) => void;
-      };
-    }).fullpage_api;
+    const api = (
+      window as unknown as {
+        fullpage_api?: {
+          setAllowScrolling: (enabled: boolean) => void;
+          setKeyboardScrolling?: (enabled: boolean) => void;
+        };
+      }
+    ).fullpage_api;
 
     if (api) {
       if (open) {
@@ -49,32 +56,34 @@ const ProjetosModal: React.FC<ProjetosModalProps> = ({ open, handleClose, projec
       open={open}
       onClose={handleClose}
       disableEnforceFocus
-      sx={{ display: "flex", justifyContent: "center", alignItems: "flex-start", pt: 4 }}
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        pt: 4,
+      }}
     >
       <Box
         sx={{
-          position: 'relative',
+          position: "relative",
           bgcolor: "rgba(54,47,65,1)",
-          width: 1000,
-          height: 500,
+          width: 1200,
+          height: 550,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           p: 2,
           borderRadius: 2,
-          outline: 'none',
+          outline: "none",
         }}
       >
-        {/* Botão de fechar */}
         <IconButton
           onClick={handleClose}
-          sx={{ position: 'absolute', top: 8, left: 8, color: 'white' }}
+          sx={{ position: "absolute", top: 8, left: 8, color: "white" }}
           size="large"
         >
           <CloseIcon />
         </IconButton>
-
-        {/* Título */}
         <Box
           sx={{
             bgcolor: "#2c2635",
@@ -88,16 +97,65 @@ const ProjetosModal: React.FC<ProjetosModalProps> = ({ open, handleClose, projec
           }}
         >
           <Typography color="white" fontSize={25}>
-            {project?.title}
+            {project?.nome}
           </Typography>
         </Box>
-
-        {/* Conteúdo principal */}
-        <Box sx={{ display: "flex", flex: 1, mt: 2, width: '100%', overflow: 'hidden' }}>
-          <Box sx={{ flex: 1, pr: 1, height: '100%' }}>
-            <video width="100%" height="100%">
-              <source />
-            </video>
+        <Box
+          sx={{
+            display: "flex",
+            flex: 1,
+            mt: 2,
+            width: "100%",
+            overflow: "hidden",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            sx={{
+              flex: 1,
+              pr: 1,
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {project?.videoUrl ? (
+              <Box
+                component="video"
+                src={project.videoUrl}
+                controls
+                muted
+                sx={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  borderRadius: 2,
+                  border: "2px solid #473C61",
+                  objectFit: "contain",
+                  display: "block",
+                  "&::-webkit-media-controls-volume-slider": {
+                    display: "none",
+                  },
+                  "&::-webkit-media-controls-mute-button": {
+                    display: "none",
+                  },
+                }}
+              />
+            ) : (
+              <Box
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  bgcolor: "rgba(0,0,0,0.3)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 1,
+                }}
+              >
+                <Typography color="white">Vídeo indisponível</Typography>
+              </Box>
+            )}
           </Box>
           <Box
             sx={{
@@ -106,41 +164,81 @@ const ProjetosModal: React.FC<ProjetosModalProps> = ({ open, handleClose, projec
               border: "2px solid #473C61",
               borderRadius: 2,
               p: 2,
-              height: '100%',
+              height: "100%",
               overflowY: "auto",
             }}
           >
-            <Typography color="white" fontSize={13} component="div">
-              {project?.description}
+            <Typography
+              color="#78679e"
+              fontSize="32px"
+              borderBottom="2px solid #473C61"
+            >
+              Descrição
             </Typography>
-            <List component="ul" sx={{ listStyleType: "disc", pl: 4, mt: 1 }}>
-              {project?.tecnology.map((tec, i) => (
-                <ListItem key={i} component="li" sx={{ display: "list-item", py: 0.5 }}>
-                  <Typography color="white" fontSize={13}>{tec}</Typography>
-                </ListItem>
+            <Typography color="white" fontSize={13} component="p" mt={1}>
+              {project?.desc}
+            </Typography>
+            <Typography
+              color="#78679e"
+              fontSize="16px"
+              borderBottom="2px solid #473C61"
+              mt={2}
+            >
+              Tecnologias
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 1,
+                mt: 2,
+              }}
+            >
+              {project?.tech.map((icone, index) => (
+                <Box key={index} sx={{ display: "flex", alignItems: "center" }}>
+                  {icone}
+                </Box>
               ))}
-            </List>
+            </Box>
           </Box>
         </Box>
-
-        {/* Rodapé com botão fixo */}
         <Box
           sx={{
-            mt: 'auto',
+            mt: "auto",
             textAlign: "center",
             pt: 2,
-            borderTop: "1px solid #473C61",
-            width: '100%'
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            gap: "30px",
           }}
         >
           <Button
             component="a"
-            href={project?.deploy || '#'}
+            href={project?.url || "#"}
             target="_blank"
             variant="contained"
-            sx={{ bgcolor: "#473C61", color: "white" }}
+            disabled={!project?.url}
+            sx={{
+              bgcolor: "#473C61",
+              color: "white",
+              border: "2px solid #1d1927",
+            }}
           >
-            Ver deploy
+            Deploy
+          </Button>
+          <Button
+            component="a"
+            href={project?.repo || "#"}
+            target="_blank"
+            variant="contained"
+            sx={{
+              bgcolor: "#473C61",
+              color: "white",
+              border: "2px solid #1d1927",
+            }}
+          >
+            Repositório
           </Button>
         </Box>
       </Box>
