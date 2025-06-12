@@ -7,7 +7,7 @@ import meteoraVideo from "../../img/meteoraVideo.mp4";
 import dev_res from "../../img/dev_res.jpg";
 import dev_resVideo from "../../img/dev_res-video.mp4";
 import athletic_force from "../../img/athletic_force.jpg";
-import athletic_forceVideo from "../../img/Athletic_ForceVideo.mp4";
+import athletic_forceVideo from "../../img/athletic_ForceVideo.mp4";
 import ProjetosModal from "./ProjetosModal";
 import { FaCss3Alt, FaNode, FaReact } from "react-icons/fa";
 import { BsBootstrap } from "react-icons/bs";

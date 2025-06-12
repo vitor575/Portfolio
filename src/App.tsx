@@ -2,6 +2,7 @@ import ReactFullpage from "@fullpage/react-fullpage";
 import Apresentacao from "./pages/Apresentacao";
 import SobreMim from "./pages/SobreMim";
 import Projetos from "./pages/Projetos";
+import Contatos from "./pages/Contatos";
 
 function App() {
   
@@ -10,7 +11,7 @@ function App() {
       anchors={['home', 'sobre-mim', 'meus-projetos', 'contato']}
       navigation
       scrollingSpeed={1000}
-      credits={{ enabled: false }}
+      credits={{ enabled: true }}
       render={() => {
         return (
           <div>
@@ -22,6 +23,9 @@ function App() {
             </div>
             <div className="section" style={{ background: '#2E2B33'}}>
               <Projetos />
+            </div>
+            <div className="section" style={{ background: '#2E2B33'}}>
+              <Contatos />
             </div>
           </div>
         );
